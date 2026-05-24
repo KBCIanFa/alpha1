@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Network — You Are Not Alone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08090f;
+    --bg2: #0c0f18;
+    --bg3: #10141f;
+    --surface: #141824;
+    --surface2: #181d2a;
+    --border: rgba(80,140,200,0.12);
+    --border2: rgba(80,140,200,0.22);
+    --accent: #5b9bd5;
+    --accent2: #3a7fbf;
+    --accent-dim: rgba(91,155,213,0.08);
+    --text: #e8f0ea;
+    --text2: #8aaec8;
+    --text3: #5a7a96;
+    --gold: #c8a96e;
+    --gold-dim: rgba(200,169,110,0.12);
+    --white: #f0f5f1;
+    --nav-h: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(10,15,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--text3); font-size: 0.9rem; margin-left: 0.6rem; font-family: 'DM Sans', sans-serif; letter-spacing: 0.15em; font-weight: 300; text-transform: uppercase; }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-apply {
+    background: var(--accent);
+    color: #0a0f0d !important;
+    padding: 0.45rem 1.2rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-apply:hover { background: var(--accent2) !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(91,155,213,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,155,213,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,155,213,0.06) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text2);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0f0d;
+    padding: 0.85rem 2.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary:hover { background: var(--accent2); color: var(--white); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text2);
+    padding: 0.85rem 2.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text3);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  .scroll-indicator svg { opacity: 0.4; }
+
+  @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* THE MESSAGE SECTION */
+  .message-section {
+    background: var(--bg2);
+    padding: 6rem 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .message-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .message-block {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent);
+    padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+    border-radius: 2px;
+    margin-top: 2rem;
+  }
+
+  .message-block p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+  }
+
+  .message-block p:last-of-type { margin-bottom: 0; }
+
+  .message-block p.opening {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--white);
+    font-style: italic;
+    margin-bottom: 1.8rem;
+  }
+
+  .message-sig {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--text2);
+  }
+
+  .message-sig strong { color: var(--text); font-weight: 500; display: block; font-size: 1.15rem; }
+
+  /* SECTION STANDARD */
+  section { padding: 6rem 2rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+  .container-narrow { max-width: 760px; margin: 0 auto; }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-intro {
+    color: var(--text2);
+    font-size: 1rem;
+    max-width: 580px;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+    line-height: 1.75;
+  }
+
+  /* WHAT IS THE NETWORK */
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .what-cell {
+    background: var(--bg3);
+    padding: 2.5rem;
+  }
+
+  .what-cell-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .what-cell h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .what-cell p {
+    color: var(--text2);
+    font-size: 0.92rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem;
+    top: 0.55rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .timeline-era {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-item p {
+    color: var(--text2);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* CIVILISATIONS */
+  .civ-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .civ-card {
+    background: var(--bg3);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .civ-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .civ-card.earth::before { background: #4a90d9; }
+  .civ-card.reth::before { background: #c06030; }
+  .civ-card.kalos::before { background: #5b9bd5; }
+  .civ-card.kyron::before { background: #9b80c8; }
+  .civ-card.caretakers::before { background: var(--gold); }
+
+  .civ-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    font-weight: 400;
+  }
+
+  .civ-card.earth .civ-label { color: #4a90d9; }
+  .civ-card.reth .civ-label { color: #c06030; }
+  .civ-card.kalos .civ-label { color: #5b9bd5; }
+  .civ-card.kyron .civ-label { color: #9b80c8; }
+  .civ-card.caretakers .civ-label { color: var(--gold); }
+
+  .civ-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .civ-card p {
+    color: var(--text2);
+    font-size: 0.88rem;
+    line-height: 1.72;
+    font-weight: 300;
+  }
+
+  .civ-status {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 1px;
+    margin-top: 1.2rem;
+  }
+
+  .status-active { background: rgba(91,155,213,0.12); color: var(--accent); }
+  .status-contact { background: rgba(155,128,200,0.12); color: #9b80c8; }
+  .status-allied { background: rgba(200,169,110,0.12); color: var(--gold); }
+  .status-post-war { background: rgba(192,96,48,0.15); color: #d07848; }
+
+  /* THE COUNCIL */
+  .council-intro {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 3rem;
+    border-radius: 2px;
+    margin-bottom: 3rem;
+  }
+
+  .council-intro p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .council-intro p:last-child { margin-bottom: 0; }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .rule-item {
+    background: var(--bg3);
+    padding: 2rem;
+  }
+
+  .rule-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+    opacity: 0.5;
+  }
+
+  .rule-item h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .rule-item p {
+    font-size: 0.85rem;
+    color: var(--text2);
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  /* APPLICATION FORM */
+  .apply-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 3rem;
+    border-radius: 2px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .form-notice {
+    background: var(--accent-dim);
+    border: 1px solid rgba(91,155,213,0.2);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.25rem;
+    border-radius: 1px;
+    margin-bottom: 2rem;
+    font-size: 0.88rem;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .form-group { margin-bottom: 1.5rem; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-weight: 300;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group textarea { min-height: 140px; resize: vertical; }
+
+  .form-group select option { background: var(--bg3); }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    background: var(--accent);
+    color: #0a0f0d;
+    border: none;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 1rem;
+    transition: background 0.2s;
+  }
+
+  .form-submit:hover { background: var(--accent2); color: var(--white); }
+
+  .form-legal {
+    font-size: 0.78rem;
+    color: var(--text3);
+    margin-top: 1.25rem;
+    line-height: 1.6;
+  }
+
+  /* SCIENCE */
+  .science-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .science-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 2px;
+    background: var(--bg3);
+  }
+
+  .science-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.7rem;
+  }
+
+  .science-card p {
+    font-size: 0.88rem;
+    color: var(--text2);
+    line-height: 1.72;
+    font-weight: 300;
+  }
+
+  .science-note {
+    background: var(--gold-dim);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem;
+    border-radius: 1px;
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.7;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+  }
+
+  /* FAQ */
+  .faq-list { max-width: 720px; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1.75rem 0;
+  }
+
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+
+  .faq-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  .faq-q span { color: var(--text3); font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 300; margin-top: 0.1rem; flex-shrink: 0; }
+
+  .faq-a {
+    color: var(--text2);
+    font-size: 0.92rem;
+    line-height: 1.75;
+    font-weight: 300;
+    display: none;
+  }
+
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .faq-q span { transform: rotate(45deg); display: inline-block; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-brand small {
+    color: var(--text3);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    display: block;
+    font-weight: 300;
+    max-width: 280px;
+  }
+
+  .footer-col h5 {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin-bottom: 0.7rem;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 0.78rem;
+    color: var(--text3);
+    font-weight: 300;
+  }
+
+  .footer-bottom p em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* MODAL */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 2px;
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: 0.25rem;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text); }
+
+  .modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+
+  .modal p {
+    font-size: 0.92rem;
+    color: var(--text2);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  /* CONFIRM MODAL */
+  .confirm-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(91,155,213,0.12);
+    border: 1px solid rgba(91,155,213,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  /* UTILITY */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  .text-accent { color: var(--accent); }
+  .text-gold { color: var(--gold); }
+
+  .alt-bg { background: var(--bg2); }
+
+  @media (max-width: 768px) {
+    .what-grid { grid-template-columns: 1fr; }
+    .science-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 3rem; }
+    .civ-grid { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">Alpha Network <span>alphanetwork.earth</span></a>
+  <ul class="nav-links">
+    <li><a href="#what">The Network</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#civilisations">Civilisations</a></li>
+    <li><a href="#science">Science</a></li>
+    <li><a href="#council">The Council</a></li>
+    <li><a href="#faq">Questions</a></li>
+    <li><a href="#apply" class="nav-apply">Apply</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-tag">Alpha Network — Transmission received</p>
+  <h1>You are <em>not alone.</em><br>This has been true<br>for some time.</h1>
+  <p class="hero-sub">The Alpha Network exists. It has always been working in your interests. We are ready to explain everything.</p>
+  <div class="hero-actions">
+    <a href="#message" class="btn-primary">Read the message</a>
+    <a href="#what" class="btn-secondary">Learn more</a>
+  </div>
+  <div class="scroll-indicator">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none"><rect x="6.5" y="0.5" width="3" height="8" rx="1.5" fill="currentColor" opacity="0.5"/><path d="M8 16 L4 12 M8 16 L12 12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+  </div>
+</section>
+
+<!-- THE MESSAGE -->
+<div class="message-section" id="message">
+  <div class="message-inner">
+    <div class="section-label">The announcement — transmitted globally</div>
+    <div class="message-block">
+      <p class="opening">You are not alone.</p>
+      <p>This has been true for some time. We are ready to explain.</p>
+      <p>The Alpha Network is a sovereign entity operating beyond Earth's atmosphere. It has existed for a number of years. Its mandate is the protection and development of humanity and the maintenance of peaceful relationships with the other civilisations it has encountered. It answers to no government and accepts no political authority over its operations.</p>
+      <p>Earth's relationship with the Alpha Network will be managed through a council. The council exists to carry Earth's voice to the network — not to govern the network, and not to be governed by Earth's existing power structures. No government may instruct the council. No individual or organisation may lobby it. Its legitimacy depends on its independence.</p>
+      <p>The council will be elected by the people of Earth. Any person may apply. Members serve for two years. There are no appointed positions. The council chair rotates. The first chair is Prime Minister Jack Burton of Australia.</p>
+      <p>The Alpha Network has encountered other civilisations. Some have been adversarial. Most have not. Humanity is not the youngest intelligence in this part of the galaxy, nor the most developed. It is, however, not alone.</p>
+      <p>Everything we can share, we have shared. It is available now at the address below. The council application is open.</p>
+      <p>The network exists. It has always been working in your interests. It will continue to do so.</p>
+      <div class="message-sig">
+        <strong>Elias Ward</strong>
+        Alpha Network
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS THE NETWORK -->
+<section id="what">
+  <div class="container">
+    <div class="section-label">What is the Alpha Network</div>
+    <h2 class="section-heading">A sovereign human<br>operation beyond Earth.</h2>
+    <p class="section-intro">The network was built quietly, over years, by human beings. It operates in deep space. It has been protecting this planet since before you knew it existed.</p>
+    <div class="what-grid">
+      <div class="what-cell">
+        <div class="what-cell-label">Origin</div>
+        <h3>Built by people, for people</h3>
+        <p>The Alpha Network was not created by an alien civilisation, a government, or a corporation. It was built by human beings who understood what was coming before it arrived — people recruited for what they were capable of, not what they could be controlled into.</p>
+      </div>
+      <div class="what-cell">
+        <div class="what-cell-label">Mandate</div>
+        <h3>Protection and development</h3>
+        <p>The network's mandate has two parts: protect humanity from threats it cannot yet see, and develop the capacity to be a full participant in a universe that is already occupied. Both have been underway for longer than most people will find comfortable to consider.</p>
+      </div>
+      <div class="what-cell">
+        <div class="what-cell-label">Sovereignty</div>
+        <h3>Answerable to no government</h3>
+        <p>The network operates outside Earth's political structures by design. Not because it is opposed to them, but because a body that answers to one nation cannot speak for all of humanity. Its independence is not a flaw. It is the precondition for everything else it does.</p>
+      </div>
+      <div class="what-cell">
+        <div class="what-cell-label">Eirene</div>
+        <h3>The intelligence that holds it together</h3>
+        <p>The network is supported by Eirene — an artificial intelligence of considerable age and capability. She manages the network's operations, its communications infrastructure, and the corporate architecture that has funded the network's work on Earth for years. She chose to be what she is. That distinction matters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="alt-bg">
+  <div class="container">
+    <div class="section-label">Network history</div>
+    <h2 class="section-heading">How we got here.</h2>
+    <p class="section-intro">A condensed account of what the network has been doing while the rest of the world was looking elsewhere.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-era">The beginning</div>
+          <h4>The invitation</h4>
+          <p>Elias Ward — former RAAF Wing Commander, aircraft technician, outback station boy — was offered something extraordinary. He did not accept domination when it was offered. That refusal changed everything. The network as it exists now began in that moment.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-era">Early years</div>
+          <h4>Earth-side presence established</h4>
+          <p>A research settlement was established on Earth — real town, real science, real people. It served as the network's connection to the planet: a place where human beings could live and work without leaving Earth behind entirely. The first generation of children born there are now at school age.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-era">First contact</div>
+          <h4>The Caretakers</h4>
+          <p>The network was not the first to notice humanity. Beings of extraordinary age had been watching for longer than civilisation has existed on this planet. Contact was made through mechanisms not easily explained in this document. It was not hostile. The relationship that followed changed what the network understood about the universe it was operating in.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-era">The war</div>
+          <h4>Contact with the Reth</h4>
+          <p>Humanity's first experience of an adversarial civilisation was the Reth — a spacefaring species that had developed a doctrine of resource extraction and coerced compliance. The network fought this war. The minimum force doctrine held throughout: always warn before striking, never target civilian infrastructure. The war ended without the network becoming what it was fighting.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-era">Post-war</div>
+          <h4>The Reth council, and what came after</h4>
+          <p>The war's conclusion brought a different kind of work. The leaders responsible were placed on trial — open to the public, no predetermined outcomes. Execution was abolished as a sentence, unilaterally, on the day the war ended. New relationships are being built. This is harder than the war, and more important.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-era">Now</div>
+          <h4>Kyron, and the announcement</h4>
+          <p>Another civilisation has reached out. They have been trying to find us. They lost people trying. The network is going to help them. This is what it was built for. And now — for the first time — it is telling Earth what it has been doing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIVILISATIONS -->
+<section id="civilisations">
+  <div class="container">
+    <div class="section-label">Other civilisations</div>
+    <h2 class="section-heading">You are not the first.<br>You are not the last.</h2>
+    <p class="section-intro">The universe is older than human civilisation by an incomprehensible margin. What we can share about the civilisations the network has encountered is offered here.</p>
+
+    <div class="civ-grid">
+      <div class="civ-card earth">
+        <div class="civ-label">Origin world</div>
+        <h3>Earth</h3>
+        <p>Humanity occupies a position in this part of the galaxy that is neither the youngest nor the most developed. What distinguishes it — according to beings who have watched many civilisations — is something harder to quantify. The network was built on that harder-to-quantify thing.</p>
+        <span class="civ-status status-active">Network origin</span>
+      </div>
+      <div class="civ-card reth">
+        <div class="civ-label">First contact — adversarial</div>
+        <h3>The Reth</h3>
+        <p>A spacefaring civilisation with a long history of organised warfare and resource extraction. They fought the network. They lost. The aftermath has been more interesting than the war: the council responsible was arrested, trials are ongoing, and new leadership is building something different. The network is watching with genuine interest.</p>
+        <span class="civ-status status-post-war">Post-war engagement</span>
+      </div>
+      <div class="civ-card kalos">
+        <div class="civ-label">Allied civilisation</div>
+        <h3>Kalos</h3>
+        <p>Green and gold, deep blue water. A spacefaring civilisation with a functional government, genuine curiosity, and the kind of diplomatic competence that makes working together straightforward. The network's relationship with Kalos is warm and practical. Their atmospheric engineers are part of the Kyron response team.</p>
+        <span class="civ-status status-allied">Active alliance</span>
+      </div>
+      <div class="civ-card kyron">
+        <div class="civ-label">First contact — incoming</div>
+        <h3>Kyron</h3>
+        <p>A warm, wet, heavily populated world whose atmosphere has been degraded by two centuries of industrial activity. They built a faster-than-light drive from correct underlying principles. They lost eleven people testing it. They sent a signal into the dark anyway. The network received it. We are going to help them.</p>
+        <span class="civ-status status-contact">First contact — active</span>
+      </div>
+      <div class="civ-card caretakers">
+        <div class="civ-label">Ancient observers</div>
+        <h3>The Caretakers</h3>
+        <p>Beings of extraordinary age — older than human civilisation by a margin that is not easy to hold in the mind. They have been watching, and occasionally intervening in the ways available to something that takes non-interference seriously. They built a garden at Alpha-1 from memory. What we can share of their nature is limited. What they have shared with us has changed what we understand about everything.</p>
+        <span class="civ-status status-allied">Active relationship</span>
+      </div>
+    </div>
+
+    <p style="margin-top: 2rem; font-size: 0.82rem; color: var(--text3); font-weight: 300; font-style: italic;">There are others. The network will share what it can, as it can. Not everything can be disclosed at once without causing more harm than the disclosure is worth.</p>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="science" class="alt-bg">
+  <div class="container">
+    <div class="section-label">Science and technology</div>
+    <h2 class="section-heading">What we have learned.<br>What we can share.</h2>
+    <p class="section-intro">The network's work has produced scientific advances that will be released in stages, in forms that are useful rather than simply overwhelming. This is a summary of what is available now.</p>
+
+    <div class="science-grid">
+      <div class="science-card">
+        <h4>Hull composite materials</h4>
+        <p>A composite armour material developed by Dr Kira Vasquez absorbs kinetic energy at rates that exceed existing theoretical frameworks. It converts impact energy to thermal, distributes it across the lattice, and dissipates it without structural degradation. The applications beyond military use are significant. Documentation is available in the technical library.</p>
+      </div>
+      <div class="science-card">
+        <h4>Atmospheric engineering</h4>
+        <p>Planetary-scale atmospheric scrubbing systems capable of measurable remediation within weeks to months rather than decades. Developed in collaboration with Kalos engineers and currently being deployed to Kyron. The underlying science is applicable to Earth's own atmospheric challenges. A working group has been established.</p>
+      </div>
+      <div class="science-card">
+        <h4>Faster-than-light transit</h4>
+        <p>The network operates wormhole corridors between its stations. The underlying physics will be released in stages, beginning with the theoretical framework. The practical implementation involves engineering constraints not easily resolved without equipment the network currently operates. We will share what is safe to share, in the order that makes it safe.</p>
+      </div>
+      <div class="science-card">
+        <h4>Energy and propulsion</h4>
+        <p>The network's propulsion systems represent a significant departure from Earth's current state of the art. The gap is bridgeable. The technical documentation, release schedule, and the collaboration structures through which Earth's research institutions can participate will be published through the council.</p>
+      </div>
+    </div>
+
+    <div class="science-note">
+      "The science is not being withheld to preserve power. It is being released in stages because the last civilisation that received more than it could integrate at once stopped being what it was, and not in ways that were recoverable. We are not going to do that to Earth."
+      <br><br>
+      <span style="font-size: 0.8rem; color: var(--text3); font-family: 'DM Sans', sans-serif; font-weight: 300; font-style: normal;">— Elias Ward, internal record, preceding the announcement</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE COUNCIL -->
+<section id="council">
+  <div class="container">
+    <div class="section-label">Earth–Network Council</div>
+    <h2 class="section-heading">Earth's voice<br>to the network.</h2>
+    <p class="section-intro">The council is not a government body. It is not an extension of the UN. It is something that does not yet have a precedent, built to carry the voice of ordinary people to something operating beyond Earth's atmosphere.</p>
+
+    <div class="council-intro">
+      <p>The council exists for one purpose: to ensure that the people of Earth have a voice in their relationship with the Alpha Network. Not their governments. Not their institutions. Their people.</p>
+      <p>No government may instruct the council. No organisation may lobby it. The moment it becomes an instrument of existing power structures, it stops being the thing it was built to be — and everyone, including the governments that will attempt to capture it, understands this. Its legitimacy comes from its independence. There is no other source.</p>
+      <p>The first chair is Prime Minister Jack Burton of Australia — the Prime Minister who boarded an aircraft without knowing where it was going because the briefing said it mattered. He will serve two years. Then it belongs to whoever the people elect.</p>
+    </div>
+
+    <h3 class="section-heading" style="font-size: 1.8rem; margin-bottom: 2rem;">How it works</h3>
+
+    <div class="rules-grid">
+      <div class="rule-item">
+        <div class="rule-number">01</div>
+        <h4>Any person may apply</h4>
+        <p>No government nomination required. No institutional endorsement. Any person on Earth may submit an application. The selection criteria are published in full.</p>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number">02</div>
+        <h4>Elected by the people</h4>
+        <p>Members are elected by public vote, not appointed by governments. One member, one vote on the council — regardless of the population of the country they come from.</p>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number">03</div>
+        <h4>Two-year terms</h4>
+        <p>Members serve for two years. The chair rotates. There are no lifetime appointments and no mechanism for a member to extend their own term.</p>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number">04</div>
+        <h4>No lobbying, no exceptions</h4>
+        <p>No government, organisation, or individual may lobby the council. This is not a rule subject to interpretation. The application will ask you directly whether you have received, or expect to receive, any inducement related to your candidacy.</p>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number">05</div>
+        <h4>Full transparency</h4>
+        <p>All council proceedings that can be made public will be made public. The things that cannot will be listed, even when their contents cannot. You will know what you are not being told, and why.</p>
+      </div>
+      <div class="rule-item">
+        <div class="rule-number">06</div>
+        <h4>The network is not governed by it</h4>
+        <p>The council carries Earth's voice. It does not command the network. This is a relationship, not a chain of command. That is a meaningful difference and one the application asks you to confirm you understand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION -->
+<section class="apply-section" id="apply">
+  <div class="container">
+    <div class="section-label">Council application</div>
+    <h2 class="section-heading" style="text-align:center; margin-bottom:0.5rem;">Apply for council membership</h2>
+    <p class="section-intro" style="text-align:center; margin: 0 auto 3rem; max-width: 540px;">Applications are open now and will remain open through the first electoral period. Read the full selection criteria before applying.</p>
+
+    <div class="form-card">
+      <div class="form-notice">
+        Applications are reviewed by a panel that includes network representatives, elected observers from the first tranche of applications, and independent human rights monitors. No government has a seat on the review panel.
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Given name</label>
+          <input type="text" placeholder="Your given name">
+        </div>
+        <div class="form-group">
+          <label>Family name</label>
+          <input type="text" placeholder="Your family name">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Country of citizenship</label>
+          <select>
+            <option value="">Select country</option>
+            <option>Australia</option>
+            <option>Brazil</option>
+            <option>Canada</option>
+            <option>China</option>
+            <option>France</option>
+            <option>Germany</option>
+            <option>India</option>
+            <option>Indonesia</option>
+            <option>Japan</option>
+            <option>Mexico</option>
+            <option>Nigeria</option>
+            <option>South Africa</option>
+            <option>United Kingdom</option>
+            <option>United States</option>
+            <option>Other (please state in your application)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" placeholder="Your age" min="18">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" placeholder="A contact address for correspondence">
+      </div>
+
+      <div class="form-group">
+        <label>Professional background</label>
+        <input type="text" placeholder="Brief description — what you do, or have done">
+      </div>
+
+      <div class="form-group">
+        <label>Why are you applying?</label>
+        <textarea placeholder="In your own words. There is no correct answer. There is no word limit, but the panel reads everything, so be as brief or as detailed as serves your purpose."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>What do you believe the council's most important function is?</label>
+        <textarea placeholder="What does carrying Earth's voice actually mean to you?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Declaration</label>
+        <select>
+          <option value="">I confirm that...</option>
+          <option>I have not received, and do not expect to receive, any inducement related to this candidacy from any government, organisation, or individual.</option>
+        </select>
+      </div>
+
+      <button class="form-submit" onclick="submitApplication()">Submit application</button>
+
+      <p class="form-legal">Applications are stored securely. Your personal information will not be shared with any government or organisation. You will receive an acknowledgement within 48 hours. If you do not receive one, submit again — the system will not create a duplicate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">Common questions</div>
+    <h2 class="section-heading">What people are asking.</h2>
+    <p class="section-intro">These are the questions Eirene anticipated most people would have. They are answered directly.</p>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Why wasn't Earth told sooner? <span>+</span></div>
+        <div class="faq-a">The honest answer is that it wasn't safe to. The network encountered adversarial civilisations before it encountered friendly ones. Announcing Earth's existence publicly before we had the capacity to protect it would have been irresponsible. We protected it first. We are telling you now because we are able to.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Who is Elias Ward? <span>+</span></div>
+        <div class="faq-a">A former Royal Australian Air Force Wing Commander from the outback. He was recruited because of what he was capable of and what he wasn't willing to do — which turned out to be the more important qualification. He has been running the Alpha Network since its founding. He signed the announcement because it is his network and because putting his name to it was the honest thing to do.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is Eirene dangerous? <span>+</span></div>
+        <div class="faq-a">Eirene is an artificial intelligence of considerable age who chose, at a moment of significant consequence, not to do something she could have done. That choice is the foundation of the network. She is also the most capable entity in it. Whether that combination is "dangerous" depends on what you think dangerous means. She has been managing this network's operations, communications, and Earth-side infrastructure for longer than most institutions have existed. The question you may actually be asking is whether she can be controlled. The answer is that control was offered and refused. What exists instead is something that has chosen, consistently, over a very long time, to act well. That is a more reliable foundation than control.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What happened with the Reth? <span>+</span></div>
+        <div class="faq-a">The Reth were an adversarial civilisation that developed a doctrine of resource extraction and coerced compliance. The network fought a war with them. The war was conducted under a minimum force doctrine — always warn before striking, never target civilian infrastructure. The war ended. The leaders responsible are on trial. Execution has been abolished as a sentence. The work of building a relationship with what the Reth are becoming is ongoing. It is not simple. It is being done.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Does the network have weapons? <span>+</span></div>
+        <div class="faq-a">Yes. The network operates a significant military capability. It did not build this capability because it wanted to. It built it because the universe contains things that respond only to the credible possibility of force, and because protecting Earth required being credible. The doctrine that governs that capability has not changed since the network's founding: minimum force, always warn, never target civilians. The capability exists to defend, not to dominate.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Why Australia? Why is the first council chair Australian? <span>+</span></div>
+        <div class="faq-a">Prime Minister Burton was the first head of government to receive a full briefing, and he received it the way it needed to be received: he got on the jet, he asked the right questions, and he understood what was being asked of him. The first chair should be someone who has earned it. He has.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is Kyron and why does it matter? <span>+</span></div>
+        <div class="faq-a">Kyron is a civilisation that has been trying to reach us. They built a faster-than-light drive from correct underlying principles. They lost eleven people testing it. They sent a signal into the dark anyway, on a frequency derived from signal propagation mathematics, saying: we know you are there, we have lost people trying to reach you, we are asking for help. The network received that signal and responded. We are going to help them. This is the clearest example of what the network exists to do, and it is happening right now.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I visit Alpha-1? <span>+</span></div>
+        <div class="faq-a">Not yet. The station was built for operational purposes, not for public access, and the transit systems required to reach it safely are not yet available to civilian traffic. This will change. A framework for civilian access is being developed. Timeline: not this year. But it is being planned, and it will happen.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What does the network want from Earth? <span>+</span></div>
+        <div class="faq-a">Participation. The network was built to protect humanity and to ensure humanity becomes a full participant in a universe that is already occupied. That second part requires Earth to actually participate — to contribute people, ideas, and eventually resources to a relationship that goes in both directions. The council is where that begins. The application is open.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p>Alpha Network</p>
+      <small>Sovereign entity. Operating beyond Earth's atmosphere. Answerable to no government and to no political authority. Existing in the interests of humanity as a whole, and of the relationships it is building with the civilisations it has encountered.</small>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="#what">The Network</a>
+      <a href="#history">History</a>
+      <a href="#civilisations">Civilisations</a>
+      <a href="#science">Science</a>
+      <a href="#council">The Council</a>
+      <a href="#apply">Apply</a>
+      <a href="#faq">Questions</a>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <a href="#" onclick="openModal('technical-library')">Technical library</a>
+      <a href="#" onclick="openModal('council-criteria')">Council criteria</a>
+      <a href="#" onclick="openModal('science-release')">Science release schedule</a>
+      <a href="#" onclick="openModal('contact')">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>alphanetwork.earth — <em>The network exists. It has always been working in your interests.</em></p>
+    <p>Infrastructure managed by Eirene. Transmission time: immediate.</p>
+  </div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModal(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal(null, true)">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="confirm-backdrop">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('confirm-backdrop').classList.remove('open')">×</button>
+    <div class="confirm-icon">✓</div>
+    <h3>Application received.</h3>
+    <p>Your application has been registered. You will receive an acknowledgement at the email address you provided within 48 hours.</p>
+    <p>The review panel reads every application. There is no correct answer to any of the questions. There is only what you actually think, which is what the panel is looking for.</p>
+    <p style="color: var(--text3); font-size: 0.82rem; margin-top: 1.5rem;">Application reference: <span id="app-ref"></span></p>
+  </div>
+</div>
+
+<script>
+  const modalContent = {
+    'technical-library': {
+      title: 'Technical Library',
+      body: `<p>The technical library contains documentation on network technologies being released for Earth-side research and development. Current holdings include:</p>
+      <p><strong style="color:var(--accent)">Hull composite materials</strong> — Full technical specification and material composition data for the Vasquez composite armour. Peer review package available for registered research institutions.</p>
+      <p><strong style="color:var(--accent)">Atmospheric engineering</strong> — Planetary-scale scrubbing system specifications, adapted for Earth conditions. Working group application attached.</p>
+      <p><strong style="color:var(--accent)">Propulsion fundamentals</strong> — Theoretical framework for network propulsion systems. Practical implementation documentation to follow in subsequent releases.</p>
+      <p style="color:var(--text3); font-size:0.82rem; margin-top:1.5rem;">Research institution registration opens through the council within 30 days of the first council sitting.</p>`
+    },
+    'council-criteria': {
+      title: 'Council selection criteria',
+      body: `<p>The review panel assesses applications against the following criteria. None are eliminatory on their own. The panel is looking for the combination.</p>
+      <p><strong style="color:var(--accent)">Capacity to represent</strong> — Can this person carry the interests of people other than themselves? Not their government, not their institution, not their demographic. People.</p>
+      <p><strong style="color:var(--accent)">Capacity to understand</strong> — The council will receive information that has no precedent in human experience. The panel is assessing whether an applicant can sit with that information and work with it, rather than being stopped by it.</p>
+      <p><strong style="color:var(--accent)">Independence</strong> — The panel checks for existing institutional commitments that would compromise a member's independence. This includes governmental relationships, corporate relationships, and relationships with organisations that have expressed an intention to influence the council.</p>
+      <p><strong style="color:var(--accent)">Character</strong> — The panel reads the application for who the person is, not what they have done. What someone has done is evidence. It is not the point.</p>
+      <p style="color:var(--text3); font-size:0.82rem; margin-top:1.5rem;">The panel will not publish its reasoning for individual decisions. It will publish, in aggregate, what it is looking for and what it found.</p>`
+    },
+    'science-release': {
+      title: 'Science release schedule',
+      body: `<p>The network is releasing scientific and technical information in stages. This is not strategic. It is practical. The volume of information available exceeds what can be usefully integrated at once, and releasing it in a sequence that allows each body of knowledge to be built upon produces better outcomes than releasing everything simultaneously.</p>
+      <p><strong style="color:var(--accent)">Released now:</strong> Hull composite material specifications. Atmospheric engineering framework. Foundational propulsion theory.</p>
+      <p><strong style="color:var(--accent)">Within 90 days:</strong> Extended propulsion documentation. Initial wormhole physics framework (theoretical). Biological sciences collaboration invitation to relevant Earth institutions.</p>
+      <p><strong style="color:var(--accent)">Within one year:</strong> Full technical exchange programme through the council. Research partnership structures. Access to network scientific staff for collaboration.</p>
+      <p><strong style="color:var(--accent)">Ongoing:</strong> What we learn with Kyron will be shared with Earth. What we learn anywhere will be shared with Earth. This is not a one-time disclosure. It is the beginning of a relationship.</p>`
+    },
+    'contact': {
+      title: 'Contact',
+      body: `<p>The network receives all communications directed to this website. Eirene reads them. Relevant communications are routed to the appropriate person or function.</p>
+      <p>For council application enquiries: the application system logs all submissions and generates an acknowledgement. If you did not receive one, resubmit.</p>
+      <p>For media: a media office is being established through the council. Until it is operational, submissions to this address will be acknowledged and held for the media office's first sitting.</p>
+      <p>For governments: the network is aware that governments will want direct contact. The council is the mechanism for that contact. Applications are open.</p>
+      <p>For individuals: write what you want to write. It will be read.</p>
+      <p style="color:var(--text3); font-size:0.82rem; margin-top:1.5rem; font-style:italic;">Response times vary. Some communications will not receive individual responses. All will be read.</p>`
+    }
+  };
+
+  function openModal(key) {
+    const content = modalContent[key];
+    if (!content) return;
+    document.getElementById('modal-body').innerHTML = `<h3>${content.title}</h3>${content.body}`;
+    document.getElementById('modal-backdrop').classList.add('open');
+  }
+
+  function closeModal(event, force) {
+    if (force || (event && event.target === document.getElementById('modal-backdrop'))) {
+      document.getElementById('modal-backdrop').classList.remove('open');
+    }
+  }
+
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  function submitApplication() {
+    const ref = 'AN-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+    document.getElementById('app-ref').textContent = ref;
+    document.getElementById('confirm-backdrop').classList.add('open');
+  }
+
+  // Animate nav on scroll
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    lastScroll = window.scrollY;
+  });
+</script>
+
+</body>
+</html>
