@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet & Worlds — Alpha Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08090f;
+    --bg2: #0c0f18;
+    --bg3: #10141f;
+    --surface: #141824;
+    --border: rgba(80,140,200,0.12);
+    --border2: rgba(80,140,200,0.22);
+    --accent: #5b9bd5;
+    --accent2: #3a7fbf;
+    --text: #e8f0ea;
+    --text2: #8aaec8;
+    --text3: #5a7a96;
+    --gold: #c8a96e;
+    --gold-dim: rgba(200,169,110,0.12);
+    --white: #f0f5f1;
+    --nav-h: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(10,15,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--text3);
+    font-size: 0.9rem;
+    margin-left: 0.6rem;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.15em;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); }
+
+  .nav-apply {
+    background: var(--accent);
+    color: #0a0f0d !important;
+    padding: 0.45rem 1.2rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-apply:hover { background: var(--accent2) !important; color: var(--white) !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: calc(var(--nav-h) + 5rem) 2rem 5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(91,155,213,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,155,213,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .page-header-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,155,213,0.05) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .page-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    position: relative;
+  }
+
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .page-header-sub {
+    font-size: 1rem;
+    color: var(--text2);
+    max-width: 480px;
+    margin: 0 auto;
+    font-weight: 300;
+    line-height: 1.75;
+    position: relative;
+  }
+
+  /* SECTION STANDARD */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .alt-bg { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-intro {
+    color: var(--text2);
+    font-size: 1rem;
+    max-width: 600px;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+    line-height: 1.75;
+  }
+
+  /* IMAGE SLOT */
+  .img-slot {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg3);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .img-slot.ar-4-3 { aspect-ratio: 4 / 3; }
+  .img-slot.ar-fill { aspect-ratio: unset; min-height: 340px; align-self: stretch; }
+
+  .img-slot-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(91,155,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(91,155,213,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .img-slot-frame {
+    position: absolute;
+    inset: 1.25rem;
+    border: 1px solid var(--border);
+    pointer-events: none;
+  }
+
+  .img-slot-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .img-slot-icon {
+    opacity: 0.18;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .img-slot-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text3);
+    font-weight: 300;
+  }
+
+  /* When a real image is added, drop it inside .img-slot:
+     <img src="..." alt="..."> — it will fill the slot automatically */
+  .img-slot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* SHARED ENTRY META */
+  .entry-class {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    font-weight: 400;
+  }
+
+  .entry-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.35rem;
+  }
+
+  .entry-status {
+    display: inline-block;
+    font-size: 0.63rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.65rem;
+    border-radius: 1px;
+    margin-bottom: 1.1rem;
+    margin-top: 0.15rem;
+  }
+
+  .status-flagship  { background: var(--gold-dim); color: var(--gold); }
+  .status-active    { background: rgba(91,155,213,0.12); color: var(--accent); }
+  .status-earth     { background: rgba(74,144,217,0.1); color: #4a90d9; }
+  .status-allied    { background: rgba(200,169,110,0.12); color: var(--gold); }
+  .status-contact   { background: rgba(155,128,200,0.12); color: #9b80c8; }
+  .status-post-war  { background: rgba(192,96,48,0.15); color: #d07848; }
+  .status-restricted{ background: rgba(90,122,150,0.1); color: var(--text3); }
+  .status-refitting { background: rgba(91,155,213,0.06); color: var(--text3); }
+
+  .entry-desc {
+    color: var(--text2);
+    font-size: 0.9rem;
+    line-height: 1.78;
+    font-weight: 300;
+  }
+
+  .entry-specs {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.8rem;
+    gap: 1rem;
+  }
+
+  .spec-key { color: var(--text3); font-weight: 300; letter-spacing: 0.04em; flex-shrink: 0; }
+  .spec-val { color: var(--text2); font-weight: 400; text-align: right; }
+  .spec-val.cl { color: var(--text3); font-style: italic; }
+
+  /* FLEET — ALPHA-1 FEATURED */
+  .ship-featured {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    margin-bottom: 1.5px;
+  }
+
+  .ship-featured-meta {
+    padding: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--border2);
+  }
+
+  .ship-featured-meta .entry-name { font-size: 2.25rem; }
+  .ship-featured-meta .entry-desc { font-size: 0.95rem; }
+
+  /* FLEET — SHIP GRID */
+  .ship-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-top: none;
+  }
+
+  .ship-card {
+    background: var(--bg3);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ship-card-meta {
+    padding: 1.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* WORLDS GRID */
+  .world-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .world-card {
+    background: var(--bg3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .world-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    z-index: 1;
+  }
+
+  .world-card.kalos::before      { background: #5b9bd5; }
+  .world-card.kyron::before      { background: #9b80c8; }
+  .world-card.kyron-minor::before{ background: #4a90d9; }
+  .world-card.reth::before       { background: #c06030; }
+  .world-card.caretakers::before { background: var(--gold); }
+
+  .world-card-meta {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-brand small {
+    color: var(--text3);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    display: block;
+    font-weight: 300;
+    max-width: 280px;
+  }
+
+  .footer-col h5 {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin-bottom: 0.7rem;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 0.78rem;
+    color: var(--text3);
+    font-weight: 300;
+  }
+
+  .footer-bottom p em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .section-footnote {
+    margin-top: 2rem;
+    font-size: 0.82rem;
+    color: var(--text3);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .ship-featured { grid-template-columns: 1fr; }
+    .ship-featured-meta { border-left: none; border-top: 1px solid var(--border2); }
+    .img-slot.ar-fill { min-height: 240px; }
+  }
+
+  @media (max-width: 768px) {
+    .ship-grid { grid-template-columns: 1fr; }
+    .world-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Alpha Network <span>alphanetwork.earth</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#what">The Network</a></li>
+    <li><a href="index.html#history">History</a></li>
+    <li><a href="index.html#civilisations">Civilisations</a></li>
+    <li><a href="index.html#science">Science</a></li>
+    <li><a href="worlds.html" class="active">Fleet & Worlds</a></li>
+    <li><a href="index.html#council">The Council</a></li>
+    <li><a href="index.html#faq">Questions</a></li>
+    <li><a href="index.html#apply" class="nav-apply">Apply</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-header-glow"></div>
+  <p class="page-tag">Alpha Network — Visual record</p>
+  <h1>Fleet & Worlds</h1>
+  <p class="page-header-sub">What the network operates. Where it operates. What it has encountered.</p>
+</div>
+
+<!-- THE FLEET -->
+<section id="fleet">
+  <div class="container">
+    <div class="section-label">Network fleet</div>
+    <h2 class="section-heading">The ships.</h2>
+    <p class="section-intro">The fleet exists because the universe contains things that respond only to the credible possibility of force, and because protecting Earth required being credible. The doctrine has not changed since the network's founding: minimum force, always warn before striking, never target civilian infrastructure.</p>
+
+    <!-- Alpha-1 featured -->
+    <div class="ship-featured">
+      <div class="img-slot ar-fill">
+        <div class="img-slot-bg"></div>
+        <div class="img-slot-frame"></div>
+        <div class="img-slot-content">
+          <svg class="img-slot-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1"/>
+            <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+            <circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="0.75"/>
+            <line x1="2" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+            <line x1="24" y1="2" x2="24" y2="46" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+          </svg>
+          <span class="img-slot-label">Alpha-1 — Jupiter orbit</span>
+        </div>
+      </div>
+      <div class="ship-featured-meta">
+        <div class="entry-class">Command Station</div>
+        <div class="entry-name">Alpha-1</div>
+        <span class="entry-status status-flagship">Flagship</span>
+        <p class="entry-desc">A perfect sphere. No windows. No gun ports. No external features that are not load-bearing. Interior lighting comes from within the deck material itself — no overhead fixtures, no shadows. Gravity is Earth-standard throughout. A garden grows inside, built from soil carried from Earth. It was not built to be seen. It was built to last.</p>
+        <div class="entry-specs">
+          <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">Jupiter orbit</span></div>
+          <div class="spec-row"><span class="spec-key">Class</span><span class="spec-val">Command Station</span></div>
+          <div class="spec-row"><span class="spec-key">Scale</span><span class="spec-val cl">Not disclosed</span></div>
+          <div class="spec-row"><span class="spec-key">Crew</span><span class="spec-val cl">Not disclosed</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ship grid -->
+    <div class="ship-grid">
+
+      <!-- Ward's Folly -->
+      <div class="ship-card">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="44" height="36" viewBox="0 0 44 36" fill="none">
+              <rect x="2" y="10" width="40" height="16" rx="1" stroke="currentColor" stroke-width="1"/>
+              <line x1="22" y1="2" x2="22" y2="10" stroke="currentColor" stroke-width="1"/>
+              <line x1="22" y1="26" x2="22" y2="34" stroke="currentColor" stroke-width="1"/>
+              <line x1="2" y1="18" x2="8" y2="18" stroke="currentColor" stroke-width="0.75" opacity="0.5"/>
+              <line x1="36" y1="18" x2="42" y2="18" stroke="currentColor" stroke-width="0.75" opacity="0.5"/>
+            </svg>
+            <span class="img-slot-label">Ward's Folly — Earth sector</span>
+          </div>
+        </div>
+        <div class="ship-card-meta">
+          <div class="entry-class">Defensive Platform</div>
+          <div class="entry-name">Ward's Folly</div>
+          <span class="entry-status status-earth">Earth sector — active</span>
+          <p class="entry-desc">An Earth-sector defensive platform, approximately half the scale of Alpha-1. Fully armoured. Adaptive shielding. Significant weapons capability. It was not requested or authorised. It was presented to the network as a fait accompli by its builder. Ward has described it as "a warning with engines." He kept it.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val">Earth's solar system</span></div>
+            <div class="spec-row"><span class="spec-key">Armament</span><span class="spec-val cl">Not disclosed</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light Battleship -->
+      <div class="ship-card">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="48" height="28" viewBox="0 0 48 28" fill="none">
+              <polygon points="2,14 14,4 44,8 44,20 14,24" stroke="currentColor" stroke-width="1" fill="none"/>
+              <line x1="14" y1="4" x2="14" y2="24" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+              <line x1="28" y1="6" x2="28" y2="22" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+            <span class="img-slot-label">Tender-class — Ninth Fleet</span>
+          </div>
+        </div>
+        <div class="ship-card-meta">
+          <div class="entry-class">Light Battleship</div>
+          <div class="entry-name">Tender-class</div>
+          <span class="entry-status status-active">Active — multiple fleets</span>
+          <p class="entry-desc">Carries forty gunboat and fighter bays. Fights when required. The "tender" designation came from the network's early years, when the ships' primary function was understood differently from what they became. The name stayed. The ships did not stay what they were.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Bay capacity</span><span class="spec-val">40 gunboat / fighter</span></div>
+            <div class="spec-row"><span class="spec-key">Crew complement</span><span class="spec-val cl">Not disclosed</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gunboat -->
+      <div class="ship-card">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="44" height="24" viewBox="0 0 44 24" fill="none">
+              <polygon points="2,12 12,3 42,7 42,17 12,21" stroke="currentColor" stroke-width="1" fill="none"/>
+              <line x1="12" y1="3" x2="12" y2="21" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+            </svg>
+            <span class="img-slot-label">Gunboat — standard configuration</span>
+          </div>
+        </div>
+        <div class="ship-card-meta">
+          <div class="entry-class">Gunboat</div>
+          <div class="entry-name">Gunboat</div>
+          <span class="entry-status status-active">Active — multiple fleets</span>
+          <p class="entry-desc">Crew of four. Extended patrol radius. Lower thermal signature than any comparable vessel. The 30mm gatling rail at 6,000 rounds per minute became the most tactically significant weapon system in the war against the Reth. Their entire doctrine was built around defeating it. They did not succeed.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Crew</span><span class="spec-val">4</span></div>
+            <div class="spec-row"><span class="spec-key">Primary weapon</span><span class="spec-val">30mm gatling rail</span></div>
+            <div class="spec-row"><span class="spec-key">Rate of fire</span><span class="spec-val">6,000 rpm</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fighter -->
+      <div class="ship-card">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="44" height="20" viewBox="0 0 44 20" fill="none">
+              <polygon points="2,10 16,2 42,7 42,13 16,18" stroke="currentColor" stroke-width="1" fill="none"/>
+              <line x1="16" y1="2" x2="16" y2="18" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+              <line x1="28" y1="5" x2="28" y2="15" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+            <span class="img-slot-label">Fighter — atmosphere and vacuum</span>
+          </div>
+        </div>
+        <div class="ship-card-meta">
+          <div class="entry-class">Fighter</div>
+          <div class="entry-name">Fighter</div>
+          <span class="entry-status status-active">Active — multiple fleets</span>
+          <p class="entry-desc">Lighter and faster than the gunboat in both atmosphere and vacuum. Designed for close engagement where agility matters more than endurance. They are flown by people who chose to fly them.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Operating environment</span><span class="spec-val">Atmosphere + vacuum</span></div>
+            <div class="spec-row"><span class="spec-key">Crew</span><span class="spec-val cl">Not disclosed</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end ship-grid -->
+
+    <p class="section-footnote">Fleet disposition and full capability specifications are not disclosed. What is shared here is a record, not an inventory.</p>
+  </div>
+</section>
+
+<!-- THE WORLDS -->
+<section id="worlds" class="alt-bg">
+  <div class="container">
+    <div class="section-label">Other worlds</div>
+    <h2 class="section-heading">The universe is<br>already occupied.</h2>
+    <p class="section-intro">What can be shared about the worlds the network has encountered, operated in, and built relationships with. This is not a complete account. It is what is appropriate to share now.</p>
+
+    <div class="world-grid">
+
+      <!-- Kalos -->
+      <div class="world-card kalos">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1"/>
+              <ellipse cx="24" cy="24" rx="21" ry="8" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+              <ellipse cx="24" cy="24" rx="10" ry="21" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+            </svg>
+            <span class="img-slot-label">Kalos — allied world</span>
+          </div>
+        </div>
+        <div class="world-card-meta">
+          <div class="entry-class">Allied civilisation</div>
+          <div class="entry-name">Kalos</div>
+          <span class="entry-status status-allied">Active alliance</span>
+          <p class="entry-desc">Green and gold. Deep blue water — not quite the blue of Earth's oceans. Richer, more deliberate. Everything old on Kalos is built from colonial stone, quarried from the cliffs and cut by hand by the original settlers. The network's relationship with Kalos is its closest. They sent engineering teams to Kyron without being asked.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Government</span><span class="spec-val">Parliamentary democracy</span></div>
+            <div class="spec-row"><span class="spec-key">Alliance status</span><span class="spec-val">Full — bilateral</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kyron -->
+      <div class="world-card kyron">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1"/>
+              <ellipse cx="24" cy="24" rx="21" ry="8" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+              <ellipse cx="24" cy="24" rx="10" ry="21" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+              <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="3" stroke-dasharray="3 4" opacity="0.08"/>
+            </svg>
+            <span class="img-slot-label">Kyron — first contact</span>
+          </div>
+        </div>
+        <div class="world-card-meta">
+          <div class="entry-class">First contact — active</div>
+          <div class="entry-name">Kyron</div>
+          <span class="entry-status status-contact">Assistance underway</span>
+          <p class="entry-desc">Warm, wet, heavily populated. Two centuries of industrial activity have degraded the atmosphere to the point where sustained surface exposure is no longer safe without protection. The people of Kyron did this the way all civilisations have done it — solving the problem in front of them before they understood the cost. Atmospheric remediation is underway. The fires in the northern zone have gone out.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Atmosphere</span><span class="spec-val">Degraded — remediation active</span></div>
+            <div class="spec-row"><span class="spec-key">Remediation timeline</span><span class="spec-val">Weeks to months</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kyron Minor -->
+      <div class="world-card kyron-minor">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1"/>
+              <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="0.5" opacity="0.25" stroke-dasharray="2 3"/>
+            </svg>
+            <span class="img-slot-label">Kyron Minor — the moon</span>
+          </div>
+        </div>
+        <div class="world-card-meta">
+          <div class="entry-class">Kyron system — moon</div>
+          <div class="entry-name">Kyron Minor</div>
+          <span class="entry-status status-refitting">Population relocated — refitting</span>
+          <p class="entry-desc">A managed atmosphere. A crater-floor dome network and one hundred thousand people who held it together for sixteen years on the strength of a geothermal tap and a refusal to stop. The people who built it found it beautiful. They have moved to the residential stations. They intend to return to the surface of Kyron when it is ready for them.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Peak population</span><span class="spec-val">100,000</span></div>
+            <div class="spec-row"><span class="spec-key">Current status</span><span class="spec-val">Refit — agricultural refresh</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reth Home World -->
+      <div class="world-card reth">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1"/>
+              <ellipse cx="24" cy="24" rx="21" ry="6" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+              <ellipse cx="24" cy="24" rx="21" ry="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+            <span class="img-slot-label">Reth home world — post-war</span>
+          </div>
+        </div>
+        <div class="world-card-meta">
+          <div class="entry-class">Post-war engagement</div>
+          <div class="entry-name">Reth Home World</div>
+          <span class="entry-status status-post-war">Post-war — trials ongoing</span>
+          <p class="entry-desc">Blue-grey at orbital distance, banded cloud cover, the quality of a world that has been spacefaring for a long time. The council chambers where the decisions that shaped the war were made are now a construction site. The parklands being built there bear a name Dara Vel chose personally. The trials are ongoing, open to the public, with no predetermined outcomes. This is harder than the war. It is more important.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Government</span><span class="spec-val">Council of Eleven</span></div>
+            <div class="spec-row"><span class="spec-key">Trials</span><span class="spec-val">Ongoing — open proceedings</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The Caretakers' Garden -->
+      <div class="world-card caretakers">
+        <div class="img-slot ar-4-3">
+          <div class="img-slot-bg"></div>
+          <div class="img-slot-frame"></div>
+          <div class="img-slot-content">
+            <svg class="img-slot-icon" width="44" height="44" viewBox="0 0 44 44" fill="none">
+              <polygon points="22,3 26,16 40,16 29,25 33,38 22,30 11,38 15,25 4,16 18,16" stroke="currentColor" stroke-width="1" fill="none"/>
+            </svg>
+            <span class="img-slot-label">The Caretakers' garden — location withheld</span>
+          </div>
+        </div>
+        <div class="world-card-meta">
+          <div class="entry-class">Ancient observers — their place</div>
+          <div class="entry-name">The Caretakers' Garden</div>
+          <span class="entry-status status-restricted">Location withheld</span>
+          <p class="entry-desc">An unnamed star system. A garden made by beings of extraordinary age for their own purposes, over a very long time, with no need to hurry. Rock arrangements. Water features. The specific quality of something built by an intelligence that has never needed to impress anyone. The network has been permitted to visit. This is not offered to everyone.</p>
+          <div class="entry-specs">
+            <div class="spec-row"><span class="spec-key">Location</span><span class="spec-val cl">Not disclosed</span></div>
+            <div class="spec-row"><span class="spec-key">Access</span><span class="spec-val cl">Restricted</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end world-grid -->
+
+    <p class="section-footnote">There are others. The network will share what it can, as it can.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p>Alpha Network</p>
+      <small>Sovereign entity. Operating beyond Earth's atmosphere. Answerable to no government and to no political authority. Existing in the interests of humanity as a whole, and of the relationships it is building with the civilisations it has encountered.</small>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <a href="index.html#what">The Network</a>
+      <a href="index.html#history">History</a>
+      <a href="index.html#civilisations">Civilisations</a>
+      <a href="index.html#science">Science</a>
+      <a href="worlds.html">Fleet & Worlds</a>
+      <a href="index.html#council">The Council</a>
+      <a href="index.html#apply">Apply</a>
+      <a href="index.html#faq">Questions</a>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <a href="index.html">Technical library</a>
+      <a href="index.html">Council criteria</a>
+      <a href="index.html">Science release schedule</a>
+      <a href="index.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>alphanetwork.earth — <em>The network exists. It has always been working in your interests.</em></p>
+    <p>Infrastructure managed by Eirene. Transmission time: immediate.</p>
+  </div>
+</footer>
+
+</body>
+</html>
