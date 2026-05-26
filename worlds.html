@@ -520,6 +520,15 @@
     transition: all 0.2s;
   }
 
+  .nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 98;
+    background: rgba(0,0,0,0.4);
+  }
+  .nav-backdrop.open { display: block; }
+
   @media (max-width: 900px) {
     .ship-featured { grid-template-columns: 1fr; }
     .ship-featured-meta { border-left: none; border-top: 1px solid var(--border2); }
@@ -569,7 +578,7 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">Alpha Network <span>alphanetwork.earth</span></a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links">
     <li><a href="index.html#what">The Network</a></li>
     <li><a href="index.html#history">History</a></li>
     <li><a href="index.html#civilisations">Civilisations</a></li>
@@ -583,6 +592,7 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div class="nav-backdrop" id="nav-backdrop" onclick="closeNav()"></div>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
@@ -830,9 +840,22 @@
 </footer>
 
 <script>
-  function toggleNav() {
-    document.querySelector('.nav-links').classList.toggle('open');
+  function closeNav() {
+    document.getElementById('nav-links').classList.remove('open');
+    document.getElementById('nav-backdrop').classList.remove('open');
   }
+
+  function toggleNav() {
+    const open = document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('nav-backdrop').classList.toggle('open', open);
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', closeNav);
+    a.addEventListener('touchstart', closeNav, { passive: true });
+  });
+
+  window.addEventListener('scroll', closeNav, { passive: true });
 </script>
 </body>
 </html>

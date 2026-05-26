@@ -903,6 +903,15 @@
     transition: all 0.2s;
   }
 
+  .nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 98;
+    background: rgba(0,0,0,0.4);
+  }
+  .nav-backdrop.open { display: block; }
+
   @media (max-width: 768px) {
     /* Nav */
     nav { padding: 0 1.25rem; }
@@ -978,6 +987,7 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div class="nav-backdrop" id="nav-backdrop" onclick="closeNav()"></div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1482,21 +1492,22 @@
     });
   }
 
+  function closeNav() {
+    document.getElementById('nav-links').classList.remove('open');
+    document.getElementById('nav-backdrop').classList.remove('open');
+  }
+
   function toggleNav() {
-    document.getElementById('nav-links').classList.toggle('open');
+    const open = document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('nav-backdrop').classList.toggle('open', open);
   }
 
   document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.getElementById('nav-links').classList.remove('open');
-    });
+    a.addEventListener('click', closeNav);
+    a.addEventListener('touchstart', closeNav, { passive: true });
   });
 
-  // Animate nav on scroll
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    lastScroll = window.scrollY;
-  });
+  window.addEventListener('scroll', closeNav, { passive: true });
 </script>
 
 </body>
